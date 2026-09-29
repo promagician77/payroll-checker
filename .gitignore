@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.vercel/
+settings.json
+.DS_Store

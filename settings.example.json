@@ -1,0 +1,9 @@
+{
+  "overtime_max_hours": 40,
+  "overtime_max_pct_of_contracted": 25,
+  "minimum_hourly_rate": 14.15,
+  "max_avg_weekly_hours": 48,
+  "worked_includes_overtime": true,
+  "blank_optional_means_zero": true,
+  "unrecorded_hours_tolerance": 1
+}
