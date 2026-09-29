@@ -1,11 +1,4 @@
 {
-  "functions": {
-    "api/index.py": { "includeFiles": "{app/**,web/sample/**}", "maxDuration": 30 }
-  },
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index" },
-    { "source": "/", "destination": "/web/index.html" }
-  ],
   "headers": [
     { "source": "/(.*)", "headers": [
       { "key": "X-Robots-Tag", "value": "noindex, nofollow" },

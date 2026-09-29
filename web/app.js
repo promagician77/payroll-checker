@@ -24,7 +24,12 @@ function App() {
   const [filter, setFilter] = useState('all');
   const [query, setQuery] = useState('');
 
-  useEffect(() => { fetch('/api/settings').then((r) => r.json()).then(setSettings).catch(() => {}); }, []);
+  useEffect(() => {
+    fetch('/api/settings')
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`Settings request failed (${r.status})`))))
+      .then(setSettings)
+      .catch((e) => setError(`The checking service isn't responding: ${e.message}. If this is a new deployment, see the Deploy section in the README.`));
+  }, []);
 
   async function check(f = file, s = settings) {
     if (!f) return;
@@ -34,8 +39,9 @@ function App() {
     if (s) body.append('settings', JSON.stringify(s));
     try {
       const res = await fetch('/api/validate', { method: 'POST', body });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || 'The check failed.');
+      const data = await res.json().catch(() => ({}));
+      if (res.status === 404) throw new Error("The checking service wasn't found (404). The page loaded, but the API route didn't - see the Deploy section in the README.");
+      if (!res.ok) throw new Error(data.detail || `The check failed (${res.status}).`);
       setResult(data); setFilter('all'); setQuery('');
     } catch (e) { setError(e.message || 'The check failed.'); setResult(null); }
     setLoading(false);

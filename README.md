@@ -64,4 +64,8 @@ python run.py               # http://127.0.0.1:8000, API docs at /api/docs
 
 To add a check, write it in `check_row()` in `app/rules.py`, give it a name in `CHECK_NAMES`, and add a test.
 
-The hosted demo deploys to Vercel as-is (`vercel --prod`); `api/index.py` is its entry point.
+## Deploy (hosted demo)
+
+`vercel --prod`, or import the repo in Vercel. There's nothing to configure: `pyproject.toml` tells Vercel to load `app.main:app`, and that one FastAPI app serves the page, the sample files, and the API, just like `run.py` does locally.
+
+After deploying, open `/api/health` on your URL. It should show `{"ok":true}`.

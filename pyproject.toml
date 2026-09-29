@@ -1,0 +1,15 @@
+[project]
+name = "payroll-checker"
+version = "0.1.0"
+description = "Check monthly payroll CSV files and download the rows that need attention."
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi==0.115.14",
+  "python-multipart==0.0.20",
+  "uvicorn==0.34.0",
+]
+
+# Vercel loads this FastAPI app as one function: page, sample files, and API together,
+# exactly as run.py serves it locally.
+[tool.vercel]
+entrypoint = "app.main:app"
